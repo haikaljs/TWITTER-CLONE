@@ -37,7 +37,7 @@ const RegisterModal = () => {
       });
 
       toast.success("Account created!");
-      signIn('credentials', { email, password });
+      signIn("credentials", { email, password });
       registerModal.onClose();
     } catch (error) {
       console.log(error);
@@ -69,6 +69,7 @@ const RegisterModal = () => {
       />
       <Input
         placeholder="Password"
+        type="password"
         onChange={(e) => setPassword(e.target.value)}
         value={password}
         disabled={isLoading}

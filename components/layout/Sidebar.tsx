@@ -1,11 +1,18 @@
 import { BsHouseFill, BsBellFill } from "react-icons/bs";
 import { FaUser } from "react-icons/fa";
+import { BiLogOut } from "react-icons/bi";
+
+import useCurrentUser from "@/hooks/useCurrentUser";
+import { signOut } from "next-auth/react";
+
 import SidebarLogo from "./SidebarLogo";
 import SidebarItem from "./SidebarItem";
-import { BiLogOut } from "react-icons/bi";
 import SidebarTweetButton from "./SidebarTweetButton";
+import toast from "react-hot-toast";
 
 const Sidebar = () => {
+  const { data: currentUser } = useCurrentUser();
+
   const items = [
     {
       label: "Home",
@@ -36,7 +43,17 @@ const Sidebar = () => {
               icon={item.icon}
             />
           ))}
-          <SidebarItem onClick={() => {}} icon={BiLogOut} label="Logout" />
+          {currentUser && (
+            <SidebarItem
+              onClick={() => {
+                signOut();
+                toast.success("Logout successfully");
+              }}
+              icon={BiLogOut}
+              label="Logout"
+            />
+          )}
+
           <SidebarTweetButton />
         </div>
       </div>
